@@ -1,0 +1,62 @@
+@startuml
+
+class MasterMind{
+    + play(): void
+    - resume():boolean
+    {static} main
+}
+
+class Board{
+   show(): void
+   attemp(): void
+   isFinish(): boolean
+   reset(): void
+}
+
+class SecretCombination{
+    + generate(): Color[]
+    + result(PropusedCombination): Result
+    - black(PropusedCombination): int
+    - white(PropusedCombination): int
+}
+
+class Attemp{
+    + show()
+}
+
+class PropusedCombination{
+    + read(): void 
+    - isValid(): boolean
+    + color(Color): boolean
+}
+
+class Result{
+   + getBlacks(): int 
+   + getWhites(): int 
+   + isWinner(): boolean
+}
+
+class GestorIO{}
+
+enum Color{
+    GREEN
+    RED
+    YELLOW
+    BLUE
+    MAGENTA
+    CYAN
+}
+
+
+MasterMind *--> Board
+Board *--> SecretCombination
+Board o--> Attemp
+Board ..> GestorIO
+Attemp *--> PropusedCombination
+Attemp *--> Result
+Attemp --> SecretCombination
+SecretCombination ..> Result
+SecretCombination o--> Color
+PropusedCombination o--> Color
+PropusedCombination ..> GestorIO
+@enduml
